@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ChatApplication</display-name>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>AuthenticateServlet</display-name>
+    <servlet-name>AuthenticateServlet</servlet-name>
+    <servlet-class>org.myApp.AuthenticateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthenticateServlet</servlet-name>
+    <url-pattern>/AuthServ</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegisterServlet</display-name>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>org.myApp.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/RegServ</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SendServ</display-name>
+    <servlet-name>SendServ</servlet-name>
+    <servlet-class>org.myApp.SendMessage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SendServ</servlet-name>
+    <url-pattern>/SendServ</url-pattern>
+  </servlet-mapping>
+</web-app>

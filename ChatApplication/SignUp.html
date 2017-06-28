@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Sign Up</title>
+	<style>
+		.topB{
+			height:30px;
+			width:100%;
+			background-color:blue;
+		}
+		.bottomB{
+			height:30px;
+			width:100%;
+			background-color:blue;
+			position:absolute;
+			bottom:0;
+		}
+		#f1{
+			height:420px;
+			width:650px;
+			margin:10px auto;
+			padding:5px 5px;
+			border:2px lightblue solid;
+			background-color:#eaeaff;
+		}
+		form{
+			text-align:center;
+		}
+		input{
+			height:50px;
+			width:220px;
+			margin:10px 5px;
+		}
+		
+	</style>
+</head>
+<body>
+<div style="">
+<h1 style="float: left;">Sign Up</h1>
+<img src="ChatLogo.png" style="margin-left: 440px;">
+</div>
+<div class="topB"></div>
+	<div id="f1">
+	<form method="post" action="RegServ">
+		<br><br><br>
+		<input name="username" placeholder="Username" type="text"><br>
+		<input name="password" placeholder="Password" type="password"><br>
+		<input value="Submit" type="submit"><br>
+		<a href="login.jsp"><input value="Already Registered? Login Here!" type="button"></a>
+	</form>
+	</div>
+	<div class="bottomB"></div>
+
+
+</body>
+</html>

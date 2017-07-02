@@ -6,6 +6,8 @@
 		response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 		response.setHeader("Location", "login.jsp");
 }
+	String recieveUser = request.getSession().getAttribute("toUser").toString();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -57,6 +59,7 @@
 		tr{
 			border: solid black 1px;
 			font-size:larger;
+			display:inline-table;
 			
 		}
 		th{
@@ -69,6 +72,9 @@
 			height:50px;
 			background-color: whitesmoke;
 		}
+		a{
+			text-decoration:none;
+		}
 		#col1{
 			width:80px;
 		}
@@ -79,10 +85,12 @@
 		}
 	</style> 
 </head>
-<body>
+<body onload="getAjaxMessages()">
 <div style="">
 <h1 style="float: center;display:inline;">Message</h1>
 <img src="ChatLogo.png" style="margin-left: 400px;">
+<a href="Dashboard.jsp"><input type="button" value="HOME"></a>
+ <input type="button" value="Click" onclick="clearTable()">
 </div>
 <div class="topB"></div>
 <div>
@@ -106,11 +114,19 @@ import ="java.sql.Statement"
 			
 			String q1 = "select * from auth;";
 			ResultSet res = s.executeQuery(q1);
+
 			while(res.next()){
 				if(!res.getString(2).toString().equals(un)){
+					if(recieveUser.equals( "'"+res.getString(2) + "'")){
 					%>
-					<option onclick="getMessages()"><%=res.getString(2)%></option>
+					<option onclick="getAjaxMessages()" selected><%=res.getString(2)%></option>
 					<%
+					}
+					else{
+					%>
+					<option onclick="getAjaxMessages()"><%=res.getString(2)%></option>
+					<%	
+					}
 				}
 			}
 			
@@ -124,7 +140,12 @@ import ="java.sql.Statement"
 		%>	
 		</select><br/>
 		<table id="tt">
-		<tr><td>Message</td><td>Time</td></tr>
+		<tr>
+			<th style="width:700px">Message</th>
+			<th style="width:300px">Time</th>
+		</tr>
+		<tbody id="tbody">
+		</tbody>
 		</table>
 		Message:<br><textarea id="ta" onkeydown="check()" name="message" style="margin:10px auto;height:40px;width:500px"></textarea><br/>
 		<input type="submit" value="Send">
@@ -140,50 +161,57 @@ function check(){
 		alert("Maximum message length is 200");
 	}
 }
-function getMessages(){
-	<%	
-	try {
-		String url = "jdbc:mysql://localhost:3306/ChatApp";
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection c = DriverManager.getConnection( url , "root" , "dotapro");
-		Statement s = c.createStatement();
-		String q2 = "Select * from mlog;";
-		ResultSet res2 = s.executeQuery(q2);
-		while(res2.next()){
-			if(res2.getString(2).toString().equals(un)){
-	%>
-		var row = $('<tr style="color:red;" />');
-		var col = $('<td style="text-align:left;" />');
-		col.append('<%=res2.getString(3).toString()%>');
-		row.append(col);
-		col = $('<td/>');
-		col.append('<%=res2.getString(4).toString()%>');
-		row.append(col);
-		$('#tt').append(row);
-	<%
-			}
-			else if(res2.getString(1).toString().equals(un)){
-	%>
-		var row = $('<tr style="color:green;" />');
-		var col = $('<td style="text-align:right;" />');
-		col.append('<%=res2.getString(3).toString()%>');
-		row.append(col);
-		col = $('<td />');
-		col.append('<%=res2.getString(4).toString()%>');
-		row.append(col);
-		$('#tt').append(row);
-	<%
-			}
-		
-		}
-	}
-	catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-	%>
+function clearTable(){
+	
+	var table = document.getElementById("tt");
+	   var rowCount = table.rows.length;
+	   
+	    for (var i = 0; i < rowCount-1; i++) {
+	      table.deleteRow(rowCount-i-1);
+	   }
 }
+function getAjaxMessages(){
+	clearTable();
+	var toValue = $('#to>option:selected').text();
+	var params = {
+			to : toValue
+	};
+	$.get("GetMessageServlet", $.param(params), function(responseJson) {
+	//$.get("GetMessageServlet", { to: toValue }, function(responseJson) {
+		console.log("i am inside ajax.");
+		console.log(responseJson);
+		if(responseJson != undefined){
+			$.each(responseJson, function(index, item) { // Iterate over the JSON array.
+            	var mesg = item.split("$");				
+				//table
+				if(mesg[0]==="<%=un%>"){
+				var row = $('<tr style="width:1000px;float:right;color:green;" />');
+				var col = $('<td style="width:696px;text-align:right;" />');
+				col.append(mesg[1]);
+				row.append(col);
+				col = $('<td/>');
+				col.append(mesg[2]);
+				row.append(col);
+				$('#tt').append(row);
+				}
+				else{
+				var row = $('<tr style="width:1000px;float:left;color:red;" />');
+				var col = $('<td style="width:700px;text-align:left;" />');
+				col.append(mesg[1]);
+				row.append(col);
+				col = $('<td/>');
+				col.append(mesg[2]);
+				row.append(col);
+				$('#tt').append(row);
+				}
+				
+				
+				
+        	});
+		}
+	});
+}
+
+
 </script>
 </html>

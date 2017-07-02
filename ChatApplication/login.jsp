@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<% request.getSession().setAttribute("savedName",""); %>
+<% request.getSession().setAttribute("toUser",""); %>
 <% request.getSession().setAttribute("savedUser",""); %>
 <!DOCTYPE html>
 <html>

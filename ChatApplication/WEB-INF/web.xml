@@ -34,4 +34,14 @@
     <servlet-name>SendServ</servlet-name>
     <url-pattern>/SendServ</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetMessageServlet</display-name>
+    <servlet-name>GetMessageServlet</servlet-name>
+    <servlet-class>org.myApp.GetMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetMessageServlet</servlet-name>
+    <url-pattern>/GetMessageServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

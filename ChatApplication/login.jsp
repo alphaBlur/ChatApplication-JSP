@@ -52,7 +52,7 @@
 		<input name="username" placeholder="Username" type="text"><br>
 		<input name="password" placeholder="Password" type="password"><br>
 		<input value="Submit" type="submit"><br>
-		<a href="SignUp.html"><input value="Register" type="button"></a>
+		<a style="text-decoration:none" href="SignUp.html"><input  value="Register" type="button"></a>
 	</form>
 	</div>
 	<div class="bottomB" style="text-align:right;color:white;font-size:larger;">Bharat Electronics Limited-</div>

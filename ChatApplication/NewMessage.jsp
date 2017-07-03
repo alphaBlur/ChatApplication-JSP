@@ -89,8 +89,8 @@
 <div style="">
 <h1 style="float: center;display:inline;">Message</h1>
 <img src="ChatLogo.png" style="margin-left: 400px;">
-<a href="Dashboard.jsp"><input type="button" value="HOME"></a>
- <input type="button" value="Click" onclick="clearTable()">
+<a href="login.jsp"><img style="float:right;height:50px;" src="exit.png" ></a>
+<a href="Dashboard.jsp"><img style="float:right;height:50px;" src="home.jpg" ></a>
 </div>
 <div class="topB"></div>
 <div>
@@ -196,7 +196,7 @@ function getAjaxMessages(){
 				}
 				else{
 				var row = $('<tr style="width:1000px;float:left;color:red;" />');
-				var col = $('<td style="width:700px;text-align:left;" />');
+				var col = $('<td style="width:696px;text-align:left;" />');
 				col.append(mesg[1]);
 				row.append(col);
 				col = $('<td/>');

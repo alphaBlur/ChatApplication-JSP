@@ -15,7 +15,6 @@ import ="java.sql.SQLException"
 import ="java.sql.Statement"
  %>
 <%
-String name = request.getSession().getAttribute("savedName").toString();
 String un = request.getSession().getAttribute("savedUser").toString();
 
 if(un == ""){
@@ -88,22 +87,38 @@ out.println("ChatApp-"+ un);
 		#col1{
 			width:80px;
 		}
-		
+		#tags{
+			float:right;
+			height:50px;
+		}
+		#sender{
+			display: inline;
+			position: fixed;
+			float: right;
+			margin: 80px 20px;
+			right: 0px;
+		}
 	</style>
 
 </head>
 <body>
 <div style="">
 <img src="ChatLogo.png" style="margin-left: 400px;">
+<a href="login.jsp"><img style="float:right;height:50px;" src="exit.png" ></a>
 </div>
 <div class="topB"></div>
-	<div style="background-color:lavender;">
+	<div style="background-color:lavender;height:50px;">
 	<p id="wlcm"> Welcome <%=un%></p>
-	<a style=";" href="login.jsp"><input type="button" id="logout" value="Logout"></a>
-	<a style=";" href="NewMessage.jsp"><input type="button" id="newMesg" value="Send Message"></a>
+	<a href="NewMessage.jsp"><img id="sender" src="send.jpg"></a>
+	<img src="all.png" id="tags" onclick="show(1)">
+	<img src="sent.png" id="tags" onclick="show(2)">
+	<img src="received.png" id="tags" onclick="show(3)">
+	
+	<!-- <a href="NewMessage.jsp"><input type="button" id="newMesg" value="Send Message"></a>
 	<input type="button" id="all" value="All Messages" onclick="show(1)">
 	<input type="button" id="sent" value="Sent Message" onclick="show(2)">
-	<input type="button" id="received" value="Recived Message" onclick="show(3)">
+	<input type="button" id="received" value="Recived Message" onclick="show(3)"> -->
+	<hr>
 	<hr>
 	</div>
 	<table id="t1">
